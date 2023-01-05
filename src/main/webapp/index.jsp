@@ -3,7 +3,7 @@
 <title>Hello World!</title>
 </head>
 <body>
-	<h1>Today's Assignment DONE</h1>
+	<h1>Today's Assignment Completed</h1>
 	<h2>**WEB HOOKS**</h2>
 	<p>
 		It is now
