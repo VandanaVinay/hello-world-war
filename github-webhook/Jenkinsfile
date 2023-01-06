@@ -13,6 +13,7 @@ pipeline {
                 echo "$LOGNAME"
                 echo "$USER"
                 echo "$secret"
+                echo "$secret"
             }
         }
         stage('Global variable') {
