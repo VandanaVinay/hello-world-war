@@ -3,7 +3,7 @@
 <title>Hello World!</title>
 </head>
 <body>
-	<h1>trigger done</h1>
+	<h1>triggers done successfully</h1>
 	<p>
 		It is now
 		<%= new java.util.Date() %></p>
