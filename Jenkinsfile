@@ -11,15 +11,17 @@ pipeline {
                 sh '${workspace}/hello-world-war/tomcat_install'
             }
         }
-//         stage('clone step') {
-//             steps {
-//                 sh 'rm -rf hello-world-war'
-//                 sh 'git clone https://github.com/Vikas2609/hello-world-war.git'
-//             }
-//         }
+        stage('clone step') {
+            steps {
+                sh 'rm -rf hello-world-war'
+                sh 'git clone https://github.com/Vikas2609/hello-world-war.git'
+            }
+        }
         stage('Build') {
             steps {
+                dir('hello-world-war'){
                 sh 'mvn package'
+                }
             }
         }
         stage('Deploy step') {
