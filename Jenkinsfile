@@ -3,20 +3,20 @@ pipeline {
         label "deploy"
     }
     stages {
-        stage('Tomcat_install') {
+        stage('clone step') {
             steps {
                 sh 'rm -rf hello-world-war'
                 sh 'git clone https://github.com/Vikas2609/hello-world-war.git'
+            }
+        }
+        stage('Tomcat_install') {
+            steps {
+//                 sh 'rm -rf hello-world-war'
+//                 sh 'git clone https://github.com/Vikas2609/hello-world-war.git'
                 sh 'chmod 755 ${workspace}/hello-world-war/tomcat_install'
                 sh '${workspace}/hello-world-war/tomcat_install'
             }
         }
-//         stage('clone step') {
-//             steps {
-//                 sh 'rm -rf hello-world-war'
-//                 sh 'git clone https://github.com/Vikas2609/hello-world-war.git'
-//             }
-//         }
         stage('Build') {
             steps {
                 dir('hello-world-war'){
