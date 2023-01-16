@@ -1,22 +1,29 @@
-pipeline {
+pipeline{
     agent any
-    stages {
-        stage('clone step') {
-            steps {
-                sh 'rm -rf hello-world-war'
-                sh 'git clone https://github.com/venkibiligere/hello-world-war.git'
+    environment {
+        PATH = "$PATH:/usr/share/maven/bin"
+    }
+    stages{
+       stage('GetCode'){
+            steps{
+                git 'https://github.com/ravdy/javaloginapp.git'
             }
-        }
-        stage('Build') {
-            steps {
-                sh 'mvn package'
+         }        
+       stage('Build'){
+            steps{
+                sh 'mvn clean package'
             }
+         }
+        stage('SonarQube analysis') {
+//    def scannerHome = tool 'SonarScanner 4.0';
+        steps{
+        withSonarQubeEnv('sonarqube-8.9.2') { 
+        // If you have configured more than one global server connection, you can specify its name
+//      sh "${scannerHome}/bin/sonar-scanner"
+        sh "mvn sonar:sonar"
+    }
         }
-        stage('Deploy step') {
-             steps {
-                 sh 'sudo cp ${WORKSPACE}/target/hello-world-war-1.0.0.war /var/lib/tomcat9/webapps'       
-            }
         }
+       
     }
 }
-
