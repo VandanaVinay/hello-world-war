@@ -27,7 +27,7 @@ pipeline{
        stage('SonarQube analysis') {
             steps{
                 withSonarQubeEnv('sonarqube-8.3.1') { 
-                sh ''' mvn verify sonar:sonar -Dsonar.login=admin -Dsonar.password=password'''
+                sh ''' mvn verify sonar:sonar -Dsonar.login=admin -Dsonar.password=admin'''
                 }
                 
             }
