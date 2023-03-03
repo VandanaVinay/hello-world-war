@@ -8,7 +8,6 @@ pipeline {
         stage('Clone Step') {
             steps {
                 sh 'rm -rf hello-world-war'
-                sh 'docker rm -f tom_docker'
                 sh 'git clone https://github.com/Vikas2609/hello-world-war.git'
             }
         }
@@ -27,7 +26,8 @@ pipeline {
         }
         stage('Deploy Step') {
             steps {
-                sh 'docker run -itd -p 8090:8080 --name tom_docker mvn_docker'       
+                sh 'docker run -itd -p 8070:8080 --name tom_docker mvn_docker'
+                sh 'docker rm -f tom_docker'
             }
         }
     }
