@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label "deploy"
-    }
+    agent any
     stages {
         stage('clone step') {
             steps {
@@ -9,24 +7,15 @@ pipeline {
                 sh 'git clone https://github.com/Vikas2609/hello-world-war.git'
             }
         }
-        stage('Tomcat_install') {
+        stage('Build Docker Image') {
             steps {
-//                 sh 'rm -rf hello-world-war'
-//                 sh 'git clone https://github.com/Vikas2609/hello-world-war.git'
-                sh 'chmod 755 ${workspace}/hello-world-war/tomcat_install'
-                sh '${workspace}/hello-world-war/tomcat_install'
-            }
-        }
-        stage('Build') {
-            steps {
-                dir('hello-world-war'){
-                sh 'mvn package'
+                sh 'docker build -t mvn_docker .'
                 }
             }
         }
         stage('Deploy step') {
             steps {
-                sh 'sudo cp ${WORKSPACE}/target/hello-world-war-1.0.0.war /var/lib/tomcat9/webapps'       
+                sh 'docker run -itd -p 8090:8090 --name tom_docker mvn_docker'       
             }
         }
     }
