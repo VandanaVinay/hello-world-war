@@ -3,7 +3,7 @@
 <title>Hello World!</title>
 </head>
 <body>
-	<h1>Tomcat installed successfully in slave1</h1>
+	<h1>Docker CI/CD initiated successfully</h1>
 	
 	<p>
 		It is now
