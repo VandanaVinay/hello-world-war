@@ -1,9 +1,9 @@
 pipeline {
     agent any
-    environment {
-        DOCKER_HUB_USERNAME = credentials('docker-hub-creds').username
-        DOCKER_HUB_PASSWORD = credentials('docker-hub-creds').password
-    }
+//     environment {
+//         DOCKER_HUB_USERNAME = credentials('docker-hub-creds').username
+//         DOCKER_HUB_PASSWORD = credentials('docker-hub-creds').password
+//     }
     stages {
         stage('Clone Step') {
             steps {
@@ -19,10 +19,9 @@ pipeline {
         }
         stage('Push Docker Image') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
-                    sh "docker login -u '$DOCKER_HUB_USERNAME' -p '$DOCKER_HUB_PASSWORD'"
-                    sh "docker tag mvn_docker '$DOCKER_HUB_USERNAME/mvn_docker:$BUILD_NUMBER'"
-                    sh "docker push '$DOCKER_HUB_USERNAME/mvn_docker:$BUILD_NUMBER'"
+                withDockerRegistry([ credentialsId: "docker-hub-creds", url:""]) {
+                    sh 'docker tag mvn_docker vikas2609/mvn_docker:$BUILD_NUMBER'
+                    sh 'docker push vikas2609/mvn_docker:$BUILD_NUMBER' 
                 }
             }
         }
