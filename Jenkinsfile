@@ -9,7 +9,7 @@ pipeline {
             steps {
                 sh 'rm -rf hello-world-war'
                 sh 'docker rm -f tom_docker'
-                sh 'git clone https://github.com/prasanthplavada/hello-world-war.git'
+                sh 'git clone https://github.com/Vikas2609/hello-world-war.git'
             }
         }
         stage('Build Docker Image') {
