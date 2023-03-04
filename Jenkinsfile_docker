@@ -6,7 +6,6 @@ pipeline {
         stage('Build & Push Docker Image') {
             steps {
                 script {
-                    dockerImage = docker.build('vikas2609/mvn_docker')
                     dockerImage.tag("vikas2609/mvn_docker:$BUILD_NUMBER")
                     dockerImage.push("vikas2609/mvn_docker:$BUILD_NUMBER")
                 }
