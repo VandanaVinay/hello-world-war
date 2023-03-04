@@ -5,19 +5,7 @@ pipeline {
     stages {
         stage('Build & Push Docker Image') {
             steps {
-                script {
-                    dockerImage.tag("vikas2609/mvn_docker:$BUILD_NUMBER")
-                    dockerImage.push("vikas2609/mvn_docker:$BUILD_NUMBER")
-                }
-            }
-        }
-        stage('Deploy Step') {
-            steps {
-                script {
-                    sh 'docker pull vikas2609/mvn_docker:$BUILD_NUMBER'
-                    sh 'docker rm -f tom_docker'
-                    sh 'docker run -itd -p 8070:8080 --name tom_docker vikas2609/mvn_docker:$BUILD_NUMBER'
-                }
+            sh 'mvn --version'
             }
         }
     }
