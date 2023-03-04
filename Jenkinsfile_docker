@@ -1,14 +1,31 @@
 pipeline {
-  agent any
-   stages {
-      stage('build') {
-        agent {
-          docker { image 'maven:3.8.2-openjdk-8' }
-        }
-        steps {
-          sh 'mvn --version'
-          sh 'mvn clean package'
-         }
-       }
+    agent {
+        dockerfile true
     }
- }   
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t mvn_docker .'
+            }
+        }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    dockerImage = docker.build('vikas2609/mvn_docker')
+                    dockerImage.tag("vikas2609/mvn_docker:$BUILD_NUMBER")
+                    dockerImage.push("vikas2609/mvn_docker:$BUILD_NUMBER")
+                }
+            }
+        }
+        stage('Deploy Step') {
+            steps {
+                script {
+                    sh 'docker pull vikas2609/mvn_docker:$BUILD_NUMBER'
+                    sh 'docker rm -f tom_docker'
+                    sh 'docker run -itd -p 8070:8080 --name tom_docker vikas2609/mvn_docker:$BUILD_NUMBER'
+                }
+            }
+        }
+    }
+}
+
