@@ -3,12 +3,7 @@ pipeline {
         dockerfile true
     }
     stages {
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t mvn_docker .'
-            }
-        }
-        stage('Push Docker Image') {
+        stage('Build & Push Docker Image') {
             steps {
                 script {
                     dockerImage = docker.build('vikas2609/mvn_docker')
