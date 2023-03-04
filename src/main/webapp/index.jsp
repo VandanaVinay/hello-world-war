@@ -3,7 +3,7 @@
 <title>Hello World!</title>
 </head>
 <body>
-	<h1>CI/CD with JENKINS & DOCKER</h1>
+	<h1>CI/CD with JENKINS Docker as Agent</h1>
 	<h2>**HELLO_WORLD**</h2>
 	<p>
 		It is now
